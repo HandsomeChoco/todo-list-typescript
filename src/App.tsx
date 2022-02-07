@@ -1,10 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import GlobalThemeOverride from './components/GlobalThemeOverride';
+import SimpleContainer from './components/SimpleContainer';
 
 function App() {
   return (
-    <div>app</div>
+    <GlobalThemeOverride>
+      <SimpleContainer/>
+    </GlobalThemeOverride>
+    
   );
 }
 
