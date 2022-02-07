@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import PrintDate from './PrintDate';
 
 interface AppContainerProps {
   children: React.ReactNode
@@ -20,7 +21,8 @@ export default function AppContainer({ children }: AppContainerProps) {
             borderTopLeftRadius: 32, 
             borderTopRightRadius: 32,
           }}
-        > 
+        >
+          <PrintDate/>
           { children }
         </Box>
       </Container>
