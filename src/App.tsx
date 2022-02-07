@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
 import GlobalThemeOverride from './components/GlobalThemeOverride';
-import SimpleContainer from './components/SimpleContainer';
+import AppContainer from './components/AppContainer';
 
 function App() {
   return (
     <GlobalThemeOverride>
-      <SimpleContainer/>
+      <AppContainer>
+        
+      </AppContainer>
     </GlobalThemeOverride>
     
   );

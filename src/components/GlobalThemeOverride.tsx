@@ -11,7 +11,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           height: '100vh',
-          backgroundColor: '#6076e8'
+          maxHeight: '1200px',
+          backgroundColor: '#6076e8',
+          paddingTop: 24,
+          paddingLeft: 32, 
+          paddingRight: 32, 
         }
       }
     },
