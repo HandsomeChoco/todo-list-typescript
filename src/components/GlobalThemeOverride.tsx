@@ -1,10 +1,10 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import { appThemeColor } from '../constants/constants';
 
 interface GlobalThemeProps {
   children: React.ReactNode
 }
-
 const theme = createTheme({
   components: {
     MuiContainer: {
@@ -12,10 +12,7 @@ const theme = createTheme({
         root: {
           height: '100vh',
           maxHeight: '1200px',
-          backgroundColor: '#6076e8',
-          paddingTop: 24,
-          paddingLeft: 32, 
-          paddingRight: 32,
+          backgroundColor: appThemeColor,
         }
       }
     },
