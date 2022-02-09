@@ -1,11 +1,12 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { appThemeColor } from '../constants/constants';
 
 interface GlobalThemeProps {
   children: React.ReactNode
 }
-const theme = createTheme({
+
+let theme = createTheme({
   components: {
     MuiContainer: {
       styleOverrides: {
@@ -18,6 +19,8 @@ const theme = createTheme({
     },
   }
 });
+
+theme = responsiveFontSizes(theme);
 
 function GlobalThemeOverride({ children }: GlobalThemeProps) {
   return(
