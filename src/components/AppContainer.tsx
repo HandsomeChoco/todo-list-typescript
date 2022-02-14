@@ -3,10 +3,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { styled } from '@mui/material';
 import { APP_CSS } from '../constants/constants';
+import { AppContainerProps } from '../type/type';
 
-interface AppContainerProps {
-  children: React.ReactNode
-}
 
 const ResponsivePaddingContainer = styled(Container)(({ theme }) => {
   return {

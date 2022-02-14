@@ -1,10 +1,7 @@
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import { APP_THEME_COLOR } from '../constants/constants';
-
-interface GlobalThemeProps {
-  children: React.ReactNode
-}
+import { APP_CSS } from '../constants/constants';
+import { GlobalThemeProps } from '../type/type';
 
 let theme = createTheme({
   components: {
@@ -13,7 +10,7 @@ let theme = createTheme({
         root: {
           height: '100vh',
           maxHeight: '1200px',
-          backgroundColor: APP_THEME_COLOR,
+          backgroundColor: APP_CSS.APP_THEME_COLOR,
         }
       }
     },
