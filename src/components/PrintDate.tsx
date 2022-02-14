@@ -1,11 +1,14 @@
 import { Box, Stack, SxProps, Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
-import { appThemeColor, white } from "../constants/constants";
-import { useLayoutEffect } from "react";
-import axios from "axios";
+import { APP_CSS, REG_EXP_WHAT_DATE } from "../constants/constants";
+import { useLayoutEffect, useMemo, useState } from "react";
+import { formatTodayYYYYMMDD, getHoliDaysByYearMonth } from "../utils/date";
+import { formatDay } from "../utils/date";
+import { red } from "@mui/material/colors";
+import { date } from "../constants/constants";
+import { Holidays } from "../type/type";
 
-const date: Date = new Date();
 const options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric' };
 
 const boxSx: SxProps = {
@@ -21,34 +24,45 @@ const typoSx: SxProps = {
 };
 
 const iconButtonSx: SxProps = {
-  backgroundColor: appThemeColor, 
-  color: white, 
-  width: 60, 
+  backgroundColor: APP_CSS.APP_THEME_COLOR, 
+  color: APP_CSS.WHITE, 
+  width: 60,
   height: 60 
 };
 
 const iconSx: SxProps = { fontSize: 35 };
-const remainTaskSx: SxProps = { color: appThemeColor };
+const remainTaskSx: SxProps = { color: APP_CSS.APP_THEME_COLOR };
+
+const [month, day, whatDate]: string[] = date.toLocaleString('ko-kr', options).split(' ');
 
 function PrintDate(): JSX.Element {
-  const [month, day, whatDate]: string[] = date.toLocaleString('ko-kr', options).split(' ');
-
-  const getHolidays = async() => {
-    const year = date.getFullYear();
-    let month: string | number  = date.getMonth() + 1
-
-    if (month < 10) {
-      month = '0'+ month
+  const [holidays, setHolidays] = useState<Holidays[]>([]);
+ 
+  const redDateToRedColor = (): React.CSSProperties => {
+    const todayDate: string = whatDate.replace(REG_EXP_WHAT_DATE, '');
+    const redColor: React.CSSProperties = { color: red[400] };
+   
+    // 주말
+    if (todayDate === '토' || todayDate === '일') {
+      return redColor;
     }
+    
+    // 평일
+    if (findToday) {
+      return redColor;
+    }
+    return { };
+  };
 
-    const response = await axios.get(`http://10.10.12.53:9000/api/${year}/${month}`);
-    console.log(response.data.response.body)
-    return response.data.response.body;
-  }
+  const findToday = useMemo(() => {
+    return holidays.find(v => v.locdate === Number(formatTodayYYYYMMDD()));
+  }, [holidays]);
 
   useLayoutEffect(() => {
-    getHolidays();
-
+    getHoliDaysByYearMonth().then(res => {
+      const items: Holidays[] = res.data.response.body.items.item;
+      setHolidays(holidays.concat(items));
+    });
   }, []);
 
   return(
@@ -56,8 +70,13 @@ function PrintDate(): JSX.Element {
       <Box sx={boxSx}>
         <Typography variant="h3" sx={typoSx}>
           <strong>
-            <span> {month } { day }</span>
-            <span> { whatDate }</span>
+            <span> { month } { day }</span>
+            <span>
+              ,
+              <span style={redDateToRedColor()}>
+              &nbsp; {formatDay(whatDate) }
+              </span>
+            </span>
           </strong>
         </Typography>
         <IconButton sx={iconButtonSx}>
