@@ -1,11 +1,14 @@
-import { Box, Stack, SxProps, Typography } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import IconButton from '@mui/material/IconButton';
+import { useLayoutEffect, useMemo, useState, memo } from "react";
+
+import { Box, Stack, styled, SxProps } from "@mui/material";
+import { red } from "@mui/material/colors";
+import Typography, { TypographyProps } from "@mui/material/Typography"
+import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
+
 import { APP_CSS, REG_EXP_WHAT_DATE } from "../constants/constants";
-import { useLayoutEffect, useMemo, useState } from "react";
 import { formatTodayYYYYMMDD, getHoliDaysByYearMonth } from "../utils/date";
 import { formatDay } from "../utils/date";
-import { red } from "@mui/material/colors";
 import { date } from "../constants/constants";
 import { Holidays } from "../type/type";
 
@@ -16,26 +19,30 @@ const boxSx: SxProps = {
   justifyContent: 'space-between',
 };
 
-const typoSx: SxProps = {
-  fontFamily: 'SUIT-Medium', 
-  display: 'flex', 
-  flexFlow: 'rows no-wrap', 
-  alignItems: 'center'
-};
-
-const iconButtonSx: SxProps = {
-  backgroundColor: APP_CSS.APP_THEME_COLOR, 
-  color: APP_CSS.WHITE, 
-  width: 60,
-  height: 60 
-};
-
 const iconSx: SxProps = { fontSize: 35 };
-const remainTaskSx: SxProps = { color: APP_CSS.APP_THEME_COLOR };
 
 const [month, day, whatDate]: string[] = date.toLocaleString('ko-kr', options).split(' ');
 
-function PrintDate(): JSX.Element {
+const ShowDate = styled(Typography)<TypographyProps>(({ theme }) => ({
+  fontFamily: 'SUIT-Medium', 
+  display: 'flex', 
+  flexFlow: 'rows no-wrap', 
+  alignItems: 'center',
+}));
+
+const RemainTasks = styled(Typography)<TypographyProps>(({ theme }) => ({
+  color: APP_CSS.APP_THEME_COLOR
+}));
+
+const AddItemIconButton = memo(styled(IconButton)<IconButtonProps>(({ theme }) => ({
+  backgroundColor: APP_CSS.APP_THEME_COLOR, 
+  color: APP_CSS.WHITE, 
+  width: APP_CSS.STANDARD * 6 + 2,
+  height: APP_CSS.STANDARD * 6 + 2,
+  transition: APP_CSS.TRANSITION_TIME
+})));
+
+function PrintDate({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
   const [holidays, setHolidays] = useState<Holidays[]>([]);
  
   const redDateToRedColor = (): React.CSSProperties => {
@@ -63,12 +70,13 @@ function PrintDate(): JSX.Element {
       const items: Holidays[] = res.data.response.body.items.item;
       setHolidays(holidays.concat(items));
     });
+    // eslint-disable-next-line
   }, []);
 
   return(
     <Stack>
       <Box sx={boxSx}>
-        <Typography variant="h3" sx={typoSx}>
+        <ShowDate variant="h3">
           <strong>
             <span> { month } { day }</span>
             <span>
@@ -78,19 +86,25 @@ function PrintDate(): JSX.Element {
               </span>
             </span>
           </strong>
-        </Typography>
-        <IconButton sx={iconButtonSx}>
+        </ShowDate>
+        <AddItemIconButton onClick={handleOpenInput} 
+          disableRipple
+          sx={{  
+            transform: isOpen ? 'rotate(45deg)': 'none',
+            background: isOpen ? red[500] : APP_CSS.APP_THEME_COLOR,
+          }}
+        >
           <AddIcon sx={iconSx}/>
-        </IconButton>
+        </AddItemIconButton>
       </Box>
       <Box>
-        <Typography sx={remainTaskSx}>
-          <strong>3 tasks remain</strong>
-        </Typography>
+        <RemainTasks>
+          <strong> {remainTasks} tasks remain</strong>
+        </RemainTasks>
       </Box>
     </Stack>
       
   )
 }
 
-export default PrintDate;
+export default memo(PrintDate);
