@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useReducer, useRef, useState } from 'react
 import './App.css';
 import GlobalThemeOverride from './components/GlobalThemeOverride';
 import AppContainer from './components/AppContainer';
-import PrintDate from './components/PrintDate';
+import Header from './components/Header';
 import CollapsibleAddItem from './components/CollapsibleAddItem';
 import { ACTION_TYPE, State } from './type/type';
 import { reducer } from './components/reducers/reducer';
@@ -36,7 +36,7 @@ function App() {
   return (
     <GlobalThemeOverride>
       <AppContainer>
-        <PrintDate isOpen={isOpen} handleOpenInput={handleOpenInput} remainTasks={remainTasks}/>
+        <Header isOpen={isOpen} handleOpenInput={handleOpenInput} remainTasks={remainTasks}/>
         <CollapsibleAddItem isOpen={isOpen} text={text} onChange={onChange} onSubmit={onSubmit}/>
         {state.items.map(v => <ItemList key={v.id} id={v.id} isDone={v.isDone} beginAt={v.beginAt} text={v.text} />)}
       </AppContainer>

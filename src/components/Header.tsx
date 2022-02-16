@@ -42,7 +42,7 @@ const AddItemIconButton = memo(styled(IconButton)<IconButtonProps>(({ theme }) =
   transition: APP_CSS.TRANSITION_TIME
 })));
 
-function PrintDate({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
+function Header({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
   const [holidays, setHolidays] = useState<Holidays[]>([]);
  
   const redDateToRedColor = (): React.CSSProperties => {
@@ -107,4 +107,4 @@ function PrintDate({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
   )
 }
 
-export default memo(PrintDate);
+export default memo(Header);
