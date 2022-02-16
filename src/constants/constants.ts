@@ -2,7 +2,8 @@ export enum APP_CSS {
   STANDARD = 8,
   APP_THEME_COLOR = '#6076e8',
   WHITE = '#ffffff',
-  BLACK = '#000000'
+  BLACK = '#000000',
+  TRANSITION_TIME = '0.2s'
 }
 
 export enum API {
