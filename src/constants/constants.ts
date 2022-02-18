@@ -3,7 +3,8 @@ export enum APP_CSS {
   APP_THEME_COLOR = '#6076e8',
   WHITE = '#ffffff',
   BLACK = '#000000',
-  TRANSITION_TIME = '0.2s'
+  TRANSITION_TIME = '0.2s',
+  MAX_HEIGHT = 1200,
 }
 
 export enum API {
