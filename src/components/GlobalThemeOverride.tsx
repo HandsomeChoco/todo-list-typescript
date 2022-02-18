@@ -9,7 +9,7 @@ let theme = createTheme({
       styleOverrides: {
         root: {
           height: '100vh',
-          maxHeight: '1200px',
+          maxHeight: APP_CSS.MAX_HEIGHT,
           backgroundColor: APP_CSS.APP_THEME_COLOR,
         }
       }

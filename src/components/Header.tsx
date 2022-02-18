@@ -34,7 +34,7 @@ const RemainTasks = styled(Typography)<TypographyProps>(({ theme }) => ({
   color: APP_CSS.APP_THEME_COLOR
 }));
 
-const AddItemIconButton = memo(styled(IconButton)<IconButtonProps>(({ theme }) => ({
+const AddItem = memo(styled(IconButton)<IconButtonProps>(({ theme }) => ({
   backgroundColor: APP_CSS.APP_THEME_COLOR, 
   color: APP_CSS.WHITE, 
   width: APP_CSS.STANDARD * 6 + 2,
@@ -87,7 +87,7 @@ function Header({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
             </span>
           </strong>
         </ShowDate>
-        <AddItemIconButton onClick={handleOpenInput} 
+        <AddItem onClick={handleOpenInput} 
           disableRipple
           sx={{  
             transform: isOpen ? 'rotate(45deg)': 'none',
@@ -95,7 +95,7 @@ function Header({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
           }}
         >
           <AddIcon sx={iconSx}/>
-        </AddItemIconButton>
+        </AddItem>
       </Box>
       <Box>
         <RemainTasks>
