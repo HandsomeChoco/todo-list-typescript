@@ -26,12 +26,14 @@ const ResponsivePaddingContainer = styled(Container)(({ theme }) => {
 const ResponsivePaddingBox = styled(Box)(({ theme }) => {
   return {
     [theme.breakpoints.down("sm")]: {
+      height: 'calc(100vh - 24px)',
       paddingTop: APP_CSS.STANDARD * 4, // 24
       paddingLeft: APP_CSS.STANDARD * 4, // 32
       paddingRight: APP_CSS.STANDARD * 4, // 32
       paddingBottom: APP_CSS.STANDARD * 0
     },
     [theme.breakpoints.up("sm")]: {
+      height: 'calc(100vh - 64px)',
       paddingTop: APP_CSS.STANDARD * 7, // 56
       paddingLeft: APP_CSS.STANDARD * 7, // 56
       paddingRight: APP_CSS.STANDARD * 7, // 56
@@ -47,7 +49,6 @@ export default function AppContainer({ children }: AppContainerProps) {
         <ResponsivePaddingBox 
           sx={{
             bgcolor: '#ffffff',
-            height: '100%',
             borderTopLeftRadius: APP_CSS.STANDARD * 4, 
             borderTopRightRadius: APP_CSS.STANDARD * 4,
           }}
