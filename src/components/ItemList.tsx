@@ -32,10 +32,9 @@ const AppThemeDoneIcon = styled(DoneIcon)(({ theme }) => ({
 const TodoText = styled(Box)<TodoTextProps>(({ theme, isDone }) => ({
   display: 'flex',
   width: '100%',
-  justifyContent: 'space-between',
   color: isDone ? grey[500] : grey[900],
-  textDecoration: isDone ? 'line-through' : 'none',
-  paddingLeft: APP_CSS.STANDARD,
+  textDecoration: isDone ? 'line-through' : 'underline',
+  paddingLeft: APP_CSS.STANDARD
 }));
 
 const DeleteIconBox = styled(Box)<BoxProps>(({ theme }) => ({
