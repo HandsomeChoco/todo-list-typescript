@@ -1,9 +1,12 @@
 import { BoxProps } from "@mui/material/Box/Box";
+import React from "react";
 
 export interface LayoutProps {
   children: React.ReactNode
 };
 
+export interface TodoProviderProps extends LayoutProps {
+}
 export interface GlobalThemeProps extends LayoutProps {
 };
 

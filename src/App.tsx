@@ -10,8 +10,7 @@ import { date } from './constants/constants';
 import ItemList from './components/ItemList';
 import Box from '@mui/material/Box/Box';
 import { styled } from '@mui/material';
-
-const initialState: State = { items: [] };
+import TodoProvider, { useTodoDispatch, useTodoState } from './context/TodoContext';
 
 const ItemBox = styled(Box)<ItemBoxProps>(({ theme, isOpen }) => {
   return {
@@ -29,8 +28,10 @@ const ItemBox = styled(Box)<ItemBoxProps>(({ theme, isOpen }) => {
 function App() {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [text, setText] = useState<string>('');
-  const [state, dispatch] = useReducer(reducer, initialState);
   const id = useRef<number>(0);
+
+  const state = useTodoState();
+  const dispatch = useTodoDispatch();
   const remainTasks = useMemo(() => state.items.filter(v => v.isDone === false), [state]).length;
 
   const handleOpenInput = useCallback(() => setOpen(!isOpen), [isOpen]);
@@ -63,7 +64,8 @@ function App() {
   }, []);
 
   return (
-    <GlobalThemeOverride>
+    <TodoProvider>
+      <GlobalThemeOverride>
       <Layout>
         <Box>
           <Header 
@@ -94,6 +96,7 @@ function App() {
         </ItemBox>
       </Layout>
     </GlobalThemeOverride>
+    </TodoProvider>
   );
 }
 
