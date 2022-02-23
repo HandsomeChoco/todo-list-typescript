@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useState, memo } from "react";
+import { useLayoutEffect, useMemo, useState, memo, CSSProperties } from "react";
 
 import { Box, Stack, styled, SxProps } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -45,9 +45,9 @@ const AddItem = memo(styled(IconButton)<IconButtonProps>(({ theme }) => ({
 function Header({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
   const [holidays, setHolidays] = useState<Holidays[]>([]);
  
-  const redDateToRedColor = (): React.CSSProperties => {
+  const redDateToRedColor = (): CSSProperties => {
     const todayDate: string = whatDate.replace(REG_EXP_WHAT_DATE, '');
-    const redColor: React.CSSProperties = { color: red[400] };
+    const redColor: CSSProperties = { color: red[400] };
    
     // 주말
     if (todayDate === '토' || todayDate === '일') {
@@ -61,7 +61,7 @@ function Header({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
     return { };
   };
 
-  const findToday = useMemo(() => {
+  const findToday = useMemo<Holidays | undefined>(() => {
     return holidays.find(v => v.locdate === Number(formatTodayYYYYMMDD()));
   }, [holidays]);
 
@@ -69,7 +69,8 @@ function Header({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
     getHoliDaysByYearMonth().then(res => {
       const items: Holidays[] = res.data.response.body.items.item;
       setHolidays(holidays.concat(items));
-    });
+    }).catch(() => {
+    })
     // eslint-disable-next-line
   }, []);
 
@@ -103,8 +104,7 @@ function Header({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
         </RemainTasks>
       </Box>
     </Stack>
-      
-  )
+  );
 }
 
 export default memo(Header);
