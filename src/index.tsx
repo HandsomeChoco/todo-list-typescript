@@ -8,12 +8,21 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import TodoProvider from './context/TodoContext';
+
+function AppProvider() {
+  return (
+    <TodoProvider>
+      <App/>
+    </TodoProvider>
+  )
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route index element={<App/>}/>
+        <Route index element={<AppProvider/>}/>
       </Routes>      
     </BrowserRouter>
   </React.StrictMode>,

@@ -12,7 +12,7 @@ function TodoProvider({ children }: TodoProviderProps) {
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>
-          { children }
+        { children }
       </TodoDispatchContext.Provider>
     </TodoStateContext.Provider>
   )
