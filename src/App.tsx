@@ -15,6 +15,8 @@ const initialState: State = { items: [] };
 
 const ItemBox = styled(Box)<ItemBoxProps>(({ theme, isOpen }) => {
   return {
+    marginTop: '24px',
+    overflowY: 'auto', 
     [theme.breakpoints.down("sm")]: {
       height: isOpen ? 'calc(100vh - 24px - 32px - 163px - 24px)' : 'calc(100vh - 24px - 32px - 75px - 24px)' ,
     },
@@ -77,12 +79,7 @@ function App() {
           />
         </Box>
         
-        <ItemBox
-          isOpen={isOpen} 
-          sx={{
-            marginTop: '24px',
-            overflowY: 'auto'       
-        }}>
+        <ItemBox isOpen={isOpen}>
           {state.items.map(v => (
             <ItemList 
               key={v.id} 
