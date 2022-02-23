@@ -1,10 +1,10 @@
 import { BoxProps } from "@mui/material/Box/Box";
 
-export interface AppContainerProps {
+export interface LayoutProps {
   children: React.ReactNode
 };
 
-export interface GlobalThemeProps extends AppContainerProps {
+export interface GlobalThemeProps extends LayoutProps {
 };
 
 export interface Holidays {

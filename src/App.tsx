@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useReducer, useRef, useState } from 'react';
 import './App.css';
 import GlobalThemeOverride from './components/GlobalThemeOverride';
-import AppContainer from './components/AppContainer';
+import Layout from './components/Layout';
 import Header from './components/Header';
 import CollapsibleAddItem from './components/CollapsibleAddItem';
 import { ACTION_TYPE, ItemBoxProps, State } from './type/type';
@@ -62,7 +62,7 @@ function App() {
 
   return (
     <GlobalThemeOverride>
-      <AppContainer>
+      <Layout>
         <Box>
           <Header 
             isOpen={isOpen} 
@@ -95,7 +95,7 @@ function App() {
             />
           ))}
         </ItemBox>
-      </AppContainer>
+      </Layout>
     </GlobalThemeOverride>
   );
 }
