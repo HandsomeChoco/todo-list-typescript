@@ -6,26 +6,12 @@ import Header from './components/Header';
 import CollapsibleAddItem from './components/CollapsibleAddItem';
 import { ACTION_TYPE, ItemBoxProps } from './type/type';
 import { date } from './constants/constants';
-import ItemList from './components/ItemList';
+import ItemList from './components/ItemBox';
 import Box from '@mui/material/Box/Box';
 import { styled } from '@mui/material';
 import { useTodoDispatch, useTodoState } from './context/TodoContext';
 
-const ItemBox = styled(Box)<ItemBoxProps>(({ theme, isOpen }) => {
-  return {
-    marginTop: '24px',
-    overflowY: 'auto', 
-    [theme.breakpoints.down("sm")]: {
-      height: isOpen ? 'calc(100vh - 24px - 32px - 163px - 24px)' : 'calc(100vh - 24px - 32px - 75px - 24px)' ,
-    },
-    [theme.breakpoints.up("sm")]: {
-      height: isOpen ? 'calc(100vh - 64px - 56px - 165px - 24px)' : 'calc(100vh - 64px - 56px - 75px - 24px)',
-    }
-  }
-});
-
 function App() {
-  const [isOpen, setOpen] = useState<boolean>(false);
   const [text, setText] = useState<string>('');
   const id = useRef<number>(0);
   const state = useTodoState();
@@ -48,20 +34,6 @@ function App() {
     id.current += 1;
   }, [text]);
 
-  const onToggleDone: (id: number) => void = useCallback((id: number) => {
-    dispatch({ 
-      type: ACTION_TYPE.DONE_JOB,
-      id: id
-    });
-  }, []);
-
-  const onDelete: (id: number) => void = useCallback((id: number) => {
-    dispatch({
-      type: ACTION_TYPE.DELETE_ITEM,
-      id: id
-    })
-  }, []);
-
   return (
     <GlobalThemeOverride>
       <Layout>
@@ -79,19 +51,7 @@ function App() {
           />
         </Box>
         
-        <ItemBox isOpen={isOpen}>
-          {state.items.map(v => (
-            <ItemList 
-              key={v.id} 
-              id={v.id} 
-              isDone={v.isDone} 
-              beginAt={v.beginAt} 
-              text={v.text} 
-              onToggleDone={onToggleDone} 
-              onDelete={onDelete}
-            />
-          ))}
-        </ItemBox>
+        <ItemBox isOpen={isOpen}/>
       </Layout>
     </GlobalThemeOverride>
   );

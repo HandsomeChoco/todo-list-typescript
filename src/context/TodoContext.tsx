@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, Dispatch, useContext } from 'react';
+import React, { createContext, useReducer, Dispatch, useContext, useState, SetStateAction } from 'react';
 import { reducer } from '../components/reducers/reducer';
 import { ERROR_MSG } from '../constants/constants';
 import { Action, State, TodoProviderProps } from '../type/type';
@@ -6,13 +6,20 @@ import { Action, State, TodoProviderProps } from '../type/type';
 const initialState: State = { items: [] };
 const TodoStateContext = createContext<null|State>(null);
 const TodoDispatchContext = createContext<null|Dispatch<Action>>(null);
+const TodoIsOpenContext = createContext<null|boolean>(null);
+const TodoSetIsOpenContext = createContext<null|Dispatch<boolean>>(null);
 
 function TodoProvider({ children }: TodoProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>
-        { children }
+        <TodoIsOpenContext.Provider value={isOpen}>
+          <TodoSetIsOpenContext.Provider value={setIsOpen}>
+            { children }
+          </TodoSetIsOpenContext.Provider>
+        </TodoIsOpenContext.Provider>
       </TodoDispatchContext.Provider>
     </TodoStateContext.Provider>
   )
