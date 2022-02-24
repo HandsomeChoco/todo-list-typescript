@@ -6,7 +6,7 @@ import { Action, State, TodoProviderProps } from '../type/type';
 const initialState: State = { items: [] };
 const TodoStateContext = createContext<null|State>(null);
 const TodoDispatchContext = createContext<null|Dispatch<Action>>(null);
-const TodoIsOpenContext = createContext<null|boolean>(null);
+const TodoIsOpenContext = createContext<undefined|boolean>(undefined);
 const TodoSetIsOpenContext = createContext<null|Dispatch<boolean>>(null);
 
 function TodoProvider({ children }: TodoProviderProps) {
@@ -40,5 +40,15 @@ export function useTodoDispatch() {
   }
   return dispatch;
 } 
+
+export function useTodoIsOpen() {
+  const isOpen = useContext(TodoIsOpenContext);
+  return isOpen;
+}
+
+export function useTodoSetIsOpen() {
+  const setIsOpen = useContext(TodoSetIsOpenContext);
+  return setIsOpen;
+}
 
 export default TodoProvider;

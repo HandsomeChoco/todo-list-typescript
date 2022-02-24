@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useState, memo, CSSProperties } from "react";
+import { useLayoutEffect, useMemo, useState, memo, CSSProperties, useCallback } from "react";
 
 import { Box, Stack, styled, SxProps } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -11,6 +11,7 @@ import { formatTodayYYYYMMDD, getHoliDaysByYearMonth } from "../utils/date";
 import { formatDay } from "../utils/date";
 import { date } from "../constants/constants";
 import { Holidays } from "../type/type";
+import { useTodoIsOpen, useTodoSetIsOpen } from "../context/TodoContext";
 
 const options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric' };
 
@@ -42,9 +43,12 @@ const AddItem = memo(styled(IconButton)<IconButtonProps>(({ theme }) => ({
   transition: APP_CSS.TRANSITION_TIME
 })));
 
-function Header({ isOpen, handleOpenInput, remainTasks }: any): JSX.Element {
+function Header({ handleOpenInput, remainTasks }: any): JSX.Element {
   const [holidays, setHolidays] = useState<Holidays[]>([]);
- 
+  const isOpen = useTodoIsOpen();
+  const setIsOpen = useTodoSetIsOpen();
+  const handleOpenInput = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+  
   const redDateToRedColor = (): CSSProperties => {
     const todayDate: string = whatDate.replace(REG_EXP_WHAT_DATE, '');
     const redColor: CSSProperties = { color: red[400] };

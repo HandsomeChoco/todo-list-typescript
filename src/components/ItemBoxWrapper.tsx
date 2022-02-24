@@ -6,7 +6,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { styled } from "@mui/material";
 import { grey, red } from "@mui/material/colors";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useTodoDispatch, useTodoState } from "../context/TodoContext";
+import { useTodoDispatch, useTodoIsOpen, useTodoSetIsOpen, useTodoState } from "../context/TodoContext";
 
 const FlexBox = styled(Box)<BoxProps>(({ theme }) => ({
   transition: APP_CSS.TRANSITION_TIME,
@@ -60,10 +60,13 @@ const ItemBox = styled(Box)<ItemBoxProps>(({ theme, isOpen }) => {
 });
 
 
-const ItemBoxWrapper: React.FunctionComponent<> = () => {
+const ItemBoxWrapper: React.FunctionComponent<any> = () => {
   const state = useTodoState();
   const dispatch = useTodoDispatch();
   
+  const isOpen = useTodoIsOpen();
+  const setIsOpen = useTodoSetIsOpen();
+
   const { items } = state;
   const onToggleDone: (id: number) => void = useCallback((id: number) => {
     dispatch({ 
@@ -80,7 +83,7 @@ const ItemBoxWrapper: React.FunctionComponent<> = () => {
   }, []);
 
   return (
-    <ItemBox>
+    <ItemBox isOpen={isOpen}>
       {items.map(v => (
         <ItemList 
           key={v.id} 

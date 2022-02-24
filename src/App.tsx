@@ -6,7 +6,7 @@ import Header from './components/Header';
 import CollapsibleAddItem from './components/CollapsibleAddItem';
 import { ACTION_TYPE, ItemBoxProps } from './type/type';
 import { date } from './constants/constants';
-import ItemList from './components/ItemBox';
+import ItemBoxWrapper from './components/ItemBoxWrapper';
 import Box from '@mui/material/Box/Box';
 import { styled } from '@mui/material';
 import { useTodoDispatch, useTodoState } from './context/TodoContext';
@@ -18,8 +18,6 @@ function App() {
   const dispatch = useTodoDispatch();
   
   const remainTasks = useMemo(() => state.items.filter(v => v.isDone === false), [state]).length;
-
-  const handleOpenInput = useCallback(() => setOpen(!isOpen), [isOpen]);
   const onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined = (e) => setText(e.target.value);
   const onSubmit: React.FormEventHandler<HTMLFormElement> | undefined = useCallback((e) => {
     e.preventDefault();
@@ -51,7 +49,7 @@ function App() {
           />
         </Box>
         
-        <ItemBox isOpen={isOpen}/>
+        <ItemBoxWrapper isOpen={isOpen}/>
       </Layout>
     </GlobalThemeOverride>
   );
