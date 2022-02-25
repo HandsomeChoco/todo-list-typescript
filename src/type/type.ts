@@ -19,10 +19,6 @@ export interface Holidays {
 };
 
 export interface CollapsibleAddItemProps {
-  text: string,
-  isOpen: boolean,
-  onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined,
-  onSubmit: React.FormEventHandler<HTMLFormElement> | undefined
 };
 
 export interface Item {
@@ -52,7 +48,7 @@ export enum ACTION_TYPE {
 };
 
 export interface ItemBoxProps extends BoxProps {
-  isOpen: boolean|undefined
+  isOpen: boolean|null
 };
 
 export interface CheckCircleProps extends BoxProps {

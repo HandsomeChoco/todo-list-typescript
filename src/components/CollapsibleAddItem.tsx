@@ -1,10 +1,31 @@
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
-import { memo } from "react";
-import { APP_CSS } from "../constants/constants";
-import { CollapsibleAddItemProps } from "../type/type";
+import { memo, useCallback } from "react";
+import { APP_CSS, date } from "../constants/constants";
+import { useTodoDispatch, useTodoId, useTodoIsOpen, useTodoSetText, useTodoText } from "../context/TodoContext";
+import { ACTION_TYPE, CollapsibleAddItemProps } from "../type/type";
 
-const CollapsibleAddItem: React.FunctionComponent<CollapsibleAddItemProps> = ({ text, isOpen, onSubmit, onChange }) => {
+const CollapsibleAddItem: React.FunctionComponent<CollapsibleAddItemProps> = () => {
+  const isOpen = useTodoIsOpen();
+  const dispatch = useTodoDispatch();
+  const text = useTodoText();
+  const setText = useTodoSetText();
+  const id = useTodoId();
+
+  const onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined = (e) => setText(e.target.value);
+  const onSubmit: React.FormEventHandler<HTMLFormElement> | undefined = useCallback((e) => {
+    e.preventDefault();
+    dispatch({ 
+      type: ACTION_TYPE.ADD_ITEM, 
+      id: id.current, 
+      isDone: false,  
+      beginAt: date.toLocaleDateString('ko-kr'), 
+      text 
+    });
+    setText('');
+    id.current += 1;
+  }, [text]);
+
   return (
     <Box
       component="form"

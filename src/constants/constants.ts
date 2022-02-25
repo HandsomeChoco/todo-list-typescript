@@ -18,7 +18,9 @@ export const year: number = date.getFullYear();
 
 export enum ERROR_MSG {
   FAILED_NETWORK_REQUEST = '네트워크 요청에 실패했습니다.',
-  NOT_UNDER_ONE = '1보다 작은 값은 들어올 수 없어요.',
+  NOT_UNDER_ONE = '1보다 작은 값이 들어올 수 없습니다.',
   STATE_CONTEXT_ERROR = 'TodoStateContext 를 찾을 수 없습니다.',
-  DISPATCH_CONTEXT_ERROR = 'TodoDispatchContext 를 찾을 수 없습니다.'
+  DISPATCH_CONTEXT_ERROR = 'TodoDispatchContext 를 찾을 수 없습니다.',
+  ID_REF_ERROR = 'id 를 찾을 수 없습니다.',
+  TEXT_ERROR = 'text 를 찾을 수 없습니다.'
 }

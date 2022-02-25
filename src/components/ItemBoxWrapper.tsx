@@ -99,8 +99,7 @@ const ItemBoxWrapper: React.FunctionComponent<any> = () => {
   )
 }
 
-const ItemList: React.FunctionComponent<ItemListProps> = ({ id, isDone, beginAt, text, onToggleDone, onDelete }) => {
-  const state = useTodoState();
+const ItemList: React.FunctionComponent<ItemListProps> = memo(({ id, isDone, beginAt, text, onToggleDone, onDelete }) => {
   return (
     <FlexBox>
       <CheckCircle isDone={isDone} onClick={() => onToggleDone(id)}>
@@ -114,6 +113,6 @@ const ItemList: React.FunctionComponent<ItemListProps> = ({ id, isDone, beginAt,
       </TodoText> 
     </FlexBox>
   )
-};
+});
 
 export default memo(ItemBoxWrapper);
