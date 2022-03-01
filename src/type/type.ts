@@ -32,11 +32,6 @@ export interface Item {
   beginAt?: string
 };
 
-export interface ItemListProps extends Item {
-  onToggleDone: (id: number) => void
-  onDelete: (id: number) => void
-};
-
 export interface State {
   items: Item[]
 };
@@ -52,11 +47,11 @@ export enum ACTION_TYPE {
 };
 
 export interface ItemBoxProps extends BoxProps {
-  isOpen: boolean|undefined
+  isOpen: boolean|null|undefined
 };
 
 export interface CheckCircleProps extends BoxProps {
-  isDone: boolean|undefined
+  isDone: boolean|null|undefined
 };
 
 export interface TodoTextProps extends CheckCircleProps {
